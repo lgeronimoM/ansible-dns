@@ -1,4 +1,4 @@
-Servidor DNS en Centos
+Servidor DNS en linux Centos
 =========
 
 Instala y configura desde cero un servidor de DNS maestro y esclavo.
@@ -10,35 +10,69 @@ Instala y configura desde cero un servidor de DNS maestro y esclavo.
 
 Requirements
 ------------
-
+#Servidor
 - Servidor Centos 6 / 7 / 8.
 - conectividad a internet en el servidor controlado.
+
+#Archivos
+para crear una nueva zona con el dominio tienes que modifcar los archivos template y a gregar a las variables el dominio que vas a crear.
+ejemplo copiar el archivo midominio.com.zone.j2 en la ruta ../templates/ cambiando todo de la plabra midominio por el nombre de dominio personalizado.
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+El archivo de variables se encuentra en vars/main.yml.
 
-Dependencies
-------------
+Variables:
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Variables para las nuevas zonas.
+- zoneDomain
+- serialZone
+Varaibles para modificar, eliminar y agregar sudminios
+- subDomain
+- serialZone
+Variables para el archivo named.conf
+- acls #Define una regla de seguridad para los segmentos reconocidos.
+- slaves #Define en el DNS maestro uno a varios servidores esclavos DNS ejemplo '10.10.4.32; 10.10.5.32;' 
+- slaveserver #Define que ips escucha el DNS esclavo.
+- master #Define un solo servidor maestro donde podras agregar nuevos dominio y sudominio.
+- masterserver #
 
-Example Playbook
+
+Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Crear archivo principal manageDNS.yml
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+---
+- hosts: host-dns
+  become: true
+  name: 'Configuracion e instalacion DNS Server'
+  roles:
+    - ansible-dns
+
+Ejecucion playbook
+------------------
+
+# Instalar solamente el servicio DNS y configurar firewalld y selinux.
+ansible-playbook manageDNS.yml -t install
+
+# Instalar y configurar DNS maestro desde cero.
+ansible-playbook manageDNS.yml -t install,master
+
+# Instalar y configurar DNS esclavo desde cero.
+ansible-playbook manageDNS.yml -t install,slave
+
+# agregar nuevo subdominio. En esta parte no olvides editar el file .j2 en la ruta de template y modificar el serial en el archivo de variables.
+ansible-playbook manageDNS.yml -t subdomain
 
 License
 -------
 
 BSD
 
-Author Information
+Autor
 ------------------
 
 Luis Manuel Geronimo Sandoval(Sysadmin) canal de youtube #SysadminOne.
