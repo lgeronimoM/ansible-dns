@@ -56,16 +56,16 @@ Ejecucion playbook
 ------------------
 
 #Instalar solamente el servicio DNS y configurar firewalld y selinux.
-ansible-playbook manageDNS.yml -t install
+- ansible-playbook manageDNS.yml -t install
 
 #Instalar y configurar DNS maestro desde cero.
-ansible-playbook manageDNS.yml -t install,master
+- ansible-playbook manageDNS.yml -t install,master
 
 #Instalar y configurar DNS esclavo desde cero.
-ansible-playbook manageDNS.yml -t install,slave
+- ansible-playbook manageDNS.yml -t install,slave
 
 #agregar nuevo subdominio. En esta parte no olvides editar el file .j2 en la ruta de template y modificar el serial en el archivo de variables.
-ansible-playbook manageDNS.yml -t subdomain
+- ansible-playbook manageDNS.yml -t subdomain
 
 License
 -------
