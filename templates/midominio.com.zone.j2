@@ -1,0 +1,17 @@
+$ORIGIN	midominio.com.
+$TTL 86400
+@   IN  SOA     masterdns.midominio.com. root.midominio.com. (
+        {{ serialZone }}  ;Serial
+        3600        ;Refresh
+        1800        ;Retry
+        604800      ;Expire
+        86400       ;Minimum TTL
+)
+@       IN  NS          masterdns.midominio.com.
+@       IN  Ns          slavedns1.midominio.com.
+@       IN  A           {{ dnsmaster }}
+@       IN  A           {{ dnsmaster }}
+slavedns1       IN  A   {{ dnsslave }}
+masterdns       IN  A   {{ dnsmaster }}
+www			A	{{ dnsmaster }}
+subdominio		A	192.168.3.102

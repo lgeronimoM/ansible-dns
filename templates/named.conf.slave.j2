@@ -1,0 +1,86 @@
+acl "allowed" {
+{{ acls }}
+};
+
+options {
+        directory "/etc/named";
+        listen-on port 53 { {{ slaveserver }} };
+        listen-on-v6 { none; };
+        allow-recursion {
+                127.0.0.0/8;
+                10.190.3.0/24;
+                10.190.10.0/24;
+                10.0.0.0/8;
+                172.16.0.0/20;
+                192.168.0.0/16;
+        };
+        forwarders {
+                1.1.1.1;        #cloud-flare
+                8.8.8.8;        #Google DNS
+        };
+        version "No disponible";
+        #check-names master ignore;
+        #check-names slave ignore; 
+        #check-names response ignore;
+};
+
+zone "amtelser.com" {
+        type slave;
+        file "/etc/named/cache/amtelser.com.zone";
+        masters { {{master}} };
+};
+
+zone "flotcon.com" {
+        type slave;
+        file "/etc/named/cache/flotcon.com.zone";
+        masters { {{master}} };
+};
+
+zone "encontrack.com" {
+        type slave;
+        file "/etc/named/cache/encontrack.com.zone";
+        masters { {{master}} };
+};
+
+
+#zone "des-encontrack.com" {
+#        type master;
+#        file "/etc/named/cache/des-encontrack.com.zone";
+#};
+
+zone "cpv3.com" {
+        type slave;
+        file "/etc/named/cache/cpv3.com.zone";
+        masters { {{master}} };
+};
+
+zone "aag.com.mx" {
+        type slave;
+        file "/etc/named/cache/aag.com.mx.zone";
+        masters { {{master}} };
+};
+
+zone "aagelectronica.com" {
+        type slave;
+        file "/etc/named/cache/aagelectronica.com.zone";
+        masters { {{master}} };
+};
+
+zone "flotaencontrol.com" {
+        type slave;
+        file "/etc/named/cache/flotaencontrol.com.zone";
+        masters { {{master}} };
+};
+
+
+zone "5.190.10.in-addr.arpa" {
+        type slave;
+        file "/etc/named/cache/5.190.10.in-addr.arpa.zone";
+        masters { {{master}} };
+};
+
+zone "6.190.10.in-addr.arpa" {
+        type slave;
+        file "/etc/named/cache/6.190.10.in-addr.arpa.zone";
+        masters { {{master}} };
+};

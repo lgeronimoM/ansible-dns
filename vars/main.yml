@@ -1,0 +1,30 @@
+---
+# vars file for roles/manageDNServer
+
+#configuracion zonas
+zoneDomain:
+  -  ejemplo.com
+  -  midominio.com
+
+serialZone: 2020051204
+
+subDomain: 
+  - ejemplo.com
+
+dnsmaster: '192.168.3.101'
+dnsslave: '192.168.4.102'
+
+#Configuracion name.conf
+
+masterserver: '192.168.3.101; 127.0.0.1;'
+slaveserver: '192.168.4.102; 127.0.0.1;'
+
+master: '192.168.3.101;'
+slaves: '192.168.4.102'
+
+acls: '127.0.0.1;
+        10.10.0.0/21;
+        10.10.8.0/21;
+        172.16.0.0/20;
+        172.31.0.0/16;
+        192.168.0.0/16;'

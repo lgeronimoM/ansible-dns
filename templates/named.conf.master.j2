@@ -1,0 +1,82 @@
+acl "allowed" {
+{{ acls }}
+};
+
+options {
+	directory "/etc/named";
+        listen-on port 53 { {{ masterserver }} };
+        listen-on-v6 { none; };
+        allow-query  { allowed; localhost; };
+        forwarders {
+                1.1.1.1;        #cloud-flare
+                8.8.8.8;        #Google DNS
+        };
+	recursion yes;
+	check-names master ignore;
+	#check-names slave ignore; 
+	check-names response ignore;
+};
+
+zone "encontrack.com" {
+        type master;
+        file "/etc/named/zones/encontrack.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "cpv3.com" {
+        type master;
+        file "/etc/named/zones/cpv3.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "aag.com.mx" {
+        type master;
+        file "/etc/named/zones/aag.com.mx.zone";
+        allow-transfer { slaves; };
+};
+
+zone "aagelectronica.com" {
+        type master;
+        file "/etc/named/zones/aagelectronica.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "amtelser.com" {
+        type master;
+        file "/etc/named/zones/amtelser.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "instalacionmexico.com" {
+        type master;
+        file "/etc/named/zones/instalacionmexico.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "flotaencontrol.com" {
+        type master;
+        file "/etc/named/zones/flotaencontrol.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "flotcon.com" {
+        type master;
+        file "/etc/named/zones/flotcon.com.zone";
+        allow-transfer { slaves; };
+};
+
+zone "5.190.10.in-addr.arpa" {
+        type master;
+        file "/etc/named/zones/5.190.10.in-addr.arpa.zone";
+        allow-transfer { slaves; };
+};
+
+zone "6.190.10.in-addr.arpa" {
+        type master;
+        file "/etc/named/zones/6.190.10.in-addr.arpa.zone";
+        allow-transfer { slaves; };
+};
+
+acl "slaves" {
+	{{ slaves }}
+};
