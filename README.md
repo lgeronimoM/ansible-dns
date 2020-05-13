@@ -1,12 +1,18 @@
-Role Name
+Servidor DNS en Centos
 =========
 
-A brief description of the role goes here.
+Instala y configura desde cero un servidor de DNS maestro y esclavo.
+- Instala el servicio named.
+- configuracion de seguridad selinux y firewalld.
+- configura Zonas DNS.
+- configuracion archivo named.conf
+- agregar nuevos subdominios.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Servidor Centos 6 / 7 / 8.
+- conectividad a internet en el servidor controlado.
 
 Role Variables
 --------------
@@ -35,4 +41,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Luis Manuel Geronimo Sandoval(Sysadmin) canal de youtube #SysadminOne.
