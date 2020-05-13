@@ -27,17 +27,17 @@ El archivo de variables se encuentra en vars/main.yml.
 Variables:
 
 Variables para las nuevas zonas.
-- zoneDomain
-- serialZone
+- zoneDomain ## Dominios que agregara.
+- serialZone ##Serial para cada cambio.
 Varaibles para modificar, eliminar y agregar sudminios
-- subDomain
-- serialZone
+- subDomain ##Subominio que agregaras en una zona
+- serialZone ##Serial para cada cambio.
 Variables para el archivo named.conf
-- acls #Define una regla de seguridad para los segmentos reconocidos.
-- slaves #Define en el DNS maestro uno a varios servidores esclavos DNS ejemplo '10.10.4.32; 10.10.5.32;' 
-- slaveserver #Define que ips escucha el DNS esclavo.
-- master #Define un solo servidor maestro donde podras agregar nuevos dominio y sudominio.
-- masterserver #
+- acls ##Define una regla de seguridad para los segmentos reconocidos.
+- slaves ##Define en el DNS maestro uno a varios servidores esclavos DNS ejemplo '10.10.4.32; 10.10.5.32;' 
+- slaveserver ##Define que ips escucha el DNS esclavo.
+- master ##Define un solo servidor maestro en el DNS esclavo.
+- masterserver ##Define que ips escucha el DNS maestro.
 
 
 Playbook
@@ -55,16 +55,16 @@ Crear archivo principal manageDNS.yml
 Ejecucion playbook
 ------------------
 
-# Instalar solamente el servicio DNS y configurar firewalld y selinux.
+#Instalar solamente el servicio DNS y configurar firewalld y selinux.
 ansible-playbook manageDNS.yml -t install
 
-# Instalar y configurar DNS maestro desde cero.
+#Instalar y configurar DNS maestro desde cero.
 ansible-playbook manageDNS.yml -t install,master
 
-# Instalar y configurar DNS esclavo desde cero.
+#Instalar y configurar DNS esclavo desde cero.
 ansible-playbook manageDNS.yml -t install,slave
 
-# agregar nuevo subdominio. En esta parte no olvides editar el file .j2 en la ruta de template y modificar el serial en el archivo de variables.
+#agregar nuevo subdominio. En esta parte no olvides editar el file .j2 en la ruta de template y modificar el serial en el archivo de variables.
 ansible-playbook manageDNS.yml -t subdomain
 
 License
